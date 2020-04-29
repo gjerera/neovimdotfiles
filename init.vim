@@ -58,6 +58,7 @@ nmap <D-F> :Ag
 set tabstop=2
 set shiftwidth=2
 set expandtab
+set smarttab
 " inoremap <silent<expr> <TAB>
 "      \ pumvisible() ? "\<C-n>" :
 "      \ <SID>check_back_space() ? "\<TAB>" :
@@ -87,14 +88,14 @@ syntax enable
 " endif
 
 set cursorline  
-set cursorcolumn 
-
+" set cursorcolumn 
+" set colorcolumn=80
 
 set showmatch
 hi MatchParen cterm=none ctermbg=green ctermfg=blue
 " set background=dark
 " let base16colorspace=256
-colorscheme base16-tomorrow-night
+colorscheme base16-chalk " chalk cupertino  irblack  tomorrow-night
 
 let g:NERDTreeShowHidden = 1
 let g:NERDTreeMinimalUI = 1
@@ -104,6 +105,9 @@ let g:NERDTreeStatusline = ''
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 " Toggle
 nnoremap <silent> <C-b> :NERDTreeToggle<CR>
+
+" Search selected text
+vnoremap // y/<C-R>=escape(@",'/\')<CR><CR>
 
 nnoremap <C-p> :FZF<CR>
 let g:fzf_action = {
@@ -161,7 +165,20 @@ augroup remember_folds
   autocmd BufWinEnter * silent! loadview
 augroup END
 
+set foldmethod=manual
+" set foldlevelstart=1
 
+" let javaScript_fold=1         " JavaScript
+" let perl_fold=1               " Perl
+" let php_folding=1             " PHP
+" let r_syntax_folding=1        " R
+" let ruby_fold=1               " Ruby
+" let sh_fold_enabled=1         " sh
+" let vimsyn_folding='af'       " Vim script
+" let xml_syntax_folding=1      " XML
+
+map ,f :set foldmethod=indent<cr>zM<cr>
+map ,F :set foldmethod=manual<cr>zR<cr>
 
 
 let g:UltiSnipsExpandTrigger="<tab>"
@@ -170,3 +187,13 @@ let g:UltiSnipsJumpBackwardTrigger="<c-z>"
 
 " If you want :UltiSnipsEdit to split your window.
 let g:UltiSnipsEditSplit="vertical"
+
+hi CursorLine   cterm=NONE ctermbg=254 ctermfg=NONE
+hi Folded guibg=#1b1f21 guifg=#7a7a7a
+
+let mapleader = "\<space>"
+nmap <leader>/ <Plug>(choosewin)
+nmap <leader><right><right> :set splitright<cr> :vsplit<cr>
+nmap <leader><down><down> :set splitbelow<cr> :split<cr>
+nmap <leader><left><left> :set splitright&<cr> :vsplit<cr> :set splitright<cr>
+nmap <leader><up><up> :set splitbelow&<cr> :split<cr> :set splitbelow<cr>
